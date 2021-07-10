@@ -2,29 +2,32 @@
 
 __author__ = 'zer0-x'
 
+from telegram import Update
+from telegram.ext import Updater, CallbackContext, dispatcher, CommandHandler
+
 from os import environ
-from typing import List
-import telegram
-import sqlite3
-import json
+from typing import List, Optional, Any
 from hashlib import sha3_256, md5
 import time
-##TODO translation
-#import gettext
 ##TODO sync
 #import asyncio
+
+import sqlite3
+import json
+
+##TODO translation
+#import gettext
 
 
 class DataBase:
 	@staticmethod
-	def connect(db_file = 'db.sqlite3') -> None:
-		global con, cur
+	def connect(db_file = 'db.sqlite3') -> tuple:
 
-		con = sqlite3.connect(db_file)
-		cur = con.cursor()
+		con: sqlite3.Connection = sqlite3.connect(db_file)
+		cur:sqlite3.Cursor = con.cursor()
 
 
-		cur.execute('''CEATE TABLE IF NOT EXISTS universitys_data
+		cur.execute('''CREATE TABLE IF NOT EXISTS universitys_data
 					(id TEXT UNIQUE NOT NULL,
 					en_name TEXT NOT NULL,
 					ar_name TEXT NOT NULL,
@@ -33,9 +36,11 @@ class DataBase:
 					majors_data_json TEXT NOT NULL,
 					create_time REAL NOT NULL);''')
 
+		return con, cur
+
 
 	@staticmethod
-	def new_universitys_table() -> None:
+	def new_universitys_table(con, cur) -> None:
 		##get university info
 		en_name = input('English university name: ')
 		ar_name = input('Arabic university name: ')
@@ -43,7 +48,7 @@ class DataBase:
 		semester = int(input('Admission semester (1, 2, 3):'))
 		
 		majors_count = int(input('\nUniversity majors count: '))
-		unified_total = bool(input('Do you want to use unified total combination? '))
+		unified_total = True if input('Do you want to use unified total combination? ').lower() in ['y', 'yes', 1] else False
 
 		##Input function for the total combination
 		def get_total() -> List:
@@ -61,7 +66,7 @@ class DataBase:
 		def get_mojors() -> str:
 			##Unified total?
 			if unified_total:
-				print('\nWhat is the unified total combination? (0.4 as same as 40 and 40%), (Keep it blank for None)')
+				print('\nWhat is the unified total combination? (0.4 as same as 40 and 40%), (Use 0 for None)')
 				CGP, GAT, Achievement, STEP = get_total()
 
 			majors_data_json = []
@@ -75,18 +80,18 @@ class DataBase:
 					print(f'\n{major_en_name} total combination? (0.4 as same as 40 and 40%), (Keep it blank for None)')
 					CGP, GAT, Achievement, STEP = get_total()
 
-					majors_data_json.append({'id': i,
-											'code': major_code,
-											'en_name': major_en_name,
-											'ar_name': major_ar_name,
-											'sex': major_sex,
-											'CGP': CGP, 'GAT': GAT, 'Achievement': Achievement, 'STEP': STEP})
+				majors_data_json.append({'id': i,
+										'code': major_code,
+										'en_name': major_en_name,
+										'ar_name': major_ar_name,
+										'sex': major_sex,
+										'CGP': CGP, 'GAT': GAT, 'Achievement': Achievement, 'STEP': STEP})
 
 
 			return json.dumps(majors_data_json)
 
 		##Get majors ether from a file or cli
-		use_mjors_file = bool(input('Do you want to import a json file for majors data? '))
+		use_mjors_file = True if input('Do you want to import a json file for majors data? ').lower() in ['y', 'yes', 1] else False
 
 		if use_mjors_file:
 			file_path = input('A valed file path (Don\'t use quotes): ')
@@ -96,7 +101,7 @@ class DataBase:
 			majors_data_json = get_mojors()
 
 		##Create an id for the university
-		id = md5((en_name + str(year) + str(semester)).encode()).hexdigest()
+		id = 'u' + md5((en_name + str(year) + str(semester)).encode()).hexdigest()
 
 		##Insert university data to db
 		cur.execute('''INSERT INTO universitys_data VALUES
@@ -110,45 +115,51 @@ class DataBase:
 					'majors_data_json': majors_data_json,
 					'create_time': time.time()})
 
+		con.commit()
+
 		##Create new table for the university
-		cur.execute('''CREATE TABLE :id 
+		cur.execute('''CREATE TABLE IF NOT EXISTS ":id"
 					(student_id TEXT UNIQUE NOT NULL,
-					sex TEXT,
-					major TEXT,
+					sex TEXT NOT NULL,
+					major TEXT NOT NULL,
+					batch INTEGER NOT NULL,
 					CGP REAL,
 					GAT INTEGER,
 					Achievement INTEGER,
 					STEP INTEGER,
 					add_time REAL NOT NULL,
-					last_update REAL,
-					);''', {'id': id})
+					last_update REAL);''',
+					{'id': id})
 
 		con.commit()
 
 	@staticmethod
-	def drop_table():
+	def drop_table(con, cur):
 		##Get data
 		en_name = input('English university name: ')
 		year = int(input('Admission year: '))
 		semester = int(input('Admission semester (1, 2, 3):'))
 
 		##Create the university table id
-		id = md5((en_name + str(year) + str(semester)).encode()).hexdigest()
+		id = en_name + md5((en_name + str(year) + str(semester)).encode()).hexdigest()
 
-		confirmation = bool(input(f'Are you sure that you want to delete {en_name}-{year}-{semester} and all it\'s data?'))
+		confirmation = True if input(f'Are you sure that you want to delete {en_name}-{year}-{semester} and all it\'s data?').lower() in ['y', 'yes', 1] else False
 
 		cur.execute('''DELETE FROM universitys_data
-					WHERE id = :id;''')
-		cur.execute('DROP TABLE IF EXISTS :id;', {'id', id})
+					WHERE id = ":id";''')
+		cur.execute('DROP TABLE IF EXISTS ":id";', {'id', id})
 
 	@staticmethod
-	def insert_student_data(id, student_id, sex, major, CGP=None, GAT=None, Achievement=None, STEP=None) -> None:
-		cur.execute('''INSERT INTO :id VALUES
-					(:student_id, :sex, :major, :CGP, :GAT, :Achievement, :STEP, :add_time, :last_update
+	def insert_student_data(con, cur, id:str, student_id:str, sex:int, major:str, batch:int,
+							CGP:float=None, GAT:int=None, Achievement:int=None, STEP:int=None) -> None:
+
+		cur.execute('''INSERT INTO ":id" VALUES
+					(:student_id, :sex, :major, :batch, :CGP, :GAT, :Achievement, :STEP, :add_time, :last_update
 					)''',
 					{'id': id,
 					'student_id': student_id,
 					'sex': sex,
+					'batch': batch,
 					'major': major,
 					'CGP': CGP,
 					'GAT': GAT,
@@ -158,50 +169,125 @@ class DataBase:
 					'lastupdate': None})
 
 	@staticmethod
-	def update_student_data(id, student_id, major, CGP=None, GAT=None, Achievement=None, STEP=None) -> None:
-		cur.execute('''UPDATE :id SET
+	def update_student_data(con, cur, id:str, student_id:str, major:str, batch:int,
+							CGP:float=None, GAT:int=None, Achievement:int=None, STEP:int=None) -> None:
+
+		cur.execute('''UPDATE ":id" SET
 					major = :major,
+					batch = :batch,
 					CGP =:CGP,
 					GAT = :GAT
 					Achievement = :Achievement,
-					STEP = :STEP''',
+					STEP = :STEP
+					WHERE student_id = :student_id''',
 					{'id': id,
+					'student_id': student_id,
+					'major': major,
+					'batch': batch,
 					'CGP': CGP,
 					'GAT': GAT,
 					'Achievement': Achievement,
 					'STEP': STEP})
 
 	@staticmethod
-	def student_withdrawal(id, student_id):
-		cur.execute('DELETE FROM :id WHERE student_id = :student_id',
+	def student_withdrawal(con, cur, id:str, student_id:str) -> None:
+		cur.execute('DELETE FROM ":id" WHERE student_id = ":student_id"',
 					{'id': id, 'student_id': student_id})
 
 
+class CLI:
+	@staticmethod
+	def get_university_id(con, cur) -> Optional[str]:
+		universitsy_data = list(cur.execute('''SELECT id, en_name, year, semester FROM universitys_data'''))
+
+		print('-'*10)
+		i = 0
+		for i in range(len(universitsy_data)):
+			university = universitsy_data[i]
+			print(f'{i}) {university[1]}-{university[2]}-{university[3]}')
+		else:
+			print(f'{i+1}) *NEW UNIVERSITY*')
+			print(f'{i+2}) *DELETE UNIVERSITY*')
+		print('-'*10)
+
+		choice = int(input('Choose an option: '))
+
+		if choice == i+1:
+			DataBase.new_universitys_table(con, cur)
+			return None
+
+		elif choice == i+2:
+			DataBase.drop_table(con, cur)
+			return None
+
+		else:
+			return university[choice][0]
+
 class BotCommands:
 	@staticmethod
-	def start():
+	def start(update: Update, context: CallbackContext) -> None:
 		pass
 
 	@staticmethod
-	def update():
+	def update(update: Update, context: CallbackContext) -> None:
 		pass
 
 	@staticmethod
-	def withdrawal():
+	def withdrawal(update: Update, context: CallbackContext) -> None:
 		pass
 
 
-def cli() -> None:
+class Validation:
 	pass
 
-def main() -> None:
+def main() -> bool:
+	con, cur = DataBase.connect()
+	
 	__import__('dotenv').load_dotenv()
 	API_KEY = environ.get('API_KEY')
 
-	cli()
+	id = CLI.get_university_id(con, cur)
+
+	if not id:
+		con.close()
+		return True
+
+	id, en_name, ar_name, year, semester, majors_data_json, create_time  = next(cur.execute(
+												'''SELECT * FROM universitys_data WHERE id = ":id"''',
+												{'id': id}))
+
+	majors_data = json.loads(majors_data_json)
+	del majors_data_json
 
 
 
+
+	updater = Updater(token=API_KEY)
+
+
+	def start_(con, cur): return BotCommands.start
+	def update_(con, cur): return BotCommands.update
+	def withdrawal_(con, cur): return BotCommands.withdrawal
+
+	start = start_(con, cur)
+	update = update_(con, cur)
+	withdrawal = withdrawal_(con, cur)
+
+
+	updater.dispatcher.add_handler(CommandHandler("start", start))
+	updater.dispatcher.add_handler(CommandHandler("update", update))
+	updater.dispatcher.add_handler(CommandHandler("withdrawal", withdrawal))
+
+
+	##CONT
+
+
+
+
+	con.close()
+	return False
 
 if __name__ == '__main__':
-	main()
+	while True:
+		if not main():
+			break
