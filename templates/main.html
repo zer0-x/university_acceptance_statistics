@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="{{ CURRENT_LANGUAGE }}">
 
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title></title>
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'style/main.css') }}">
+	{% if CURRENT_LANGUAGE in RTL_LANGUAGES %}
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'style/rtl.css') }}">
+	{% endif %}
 </head>
 
 <body>
-	
+	<nav>
+		<a href="{{ url_for('home') }}">
+			<div>{{ gettext('submit') }}</div>
+		</a>
+		<a href="{{ url_for('edit') }}">
+			<div>{{ gettext('Edit') }}</div>
+		</a>
+		<a href="{{ url_for('statics') }}">
+			<div>{{ gettext('Statics') }}</div>
+		</a>
+		<a href="{{ url_for('about') }}">
+			<div>{{ gettext('About') }}</div>
+		</a>
+	</nav>
+	{% block content %}
+	{% endblock %}
 </body>
 
 </html>

@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-
-__author__ = 'zer0-x'
-
-
 from typing import List, Optional, Any
 
 from hashlib import sha3_256, md5

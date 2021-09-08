@@ -1,0 +1,16 @@
+body {
+    background-color: rgb(29, 29, 29);
+}
+
+nav {
+    display: flex;
+}
+
+nav a {
+    margin: auto;
+    padding: 7px;
+    background-color: rgba(128, 128, 128, 0.192);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+}
