@@ -5,17 +5,22 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title></title>
+	{% block meta %}
+	{% endblock %}
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'style/main.css') }}">
 	{% if CURRENT_LANGUAGE in RTL_LANGUAGES %}
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'style/rtl.css') }}">
 	{% endif %}
+	{% block static %}
+	{% endblock %}
 </head>
 
 <body>
 	<nav>
 		<a href="{{ url_for('home') }}">
-			<div>{{ gettext('submit') }}</div>
+			<div title="{{ gettext('Participate with your grades to provide more accurate statistic.') }}">
+				{{ gettext('Participate') }}
+			</div>
 		</a>
 		<a href="{{ url_for('edit') }}">
 			<div>{{ gettext('Edit') }}</div>
@@ -27,8 +32,16 @@
 			<div>{{ gettext('About') }}</div>
 		</a>
 	</nav>
-	{% block content %}
-	{% endblock %}
-</body>
+	
+	<main>
+		{% block content %}
+		{% endblock %}
+	</main>
 
+	<footer>
+		<a href="{{ url_for('set_locale') }}">{{ gettext('Change Locale') }}</a>
+	</footer>
+</body>
+	{% block foot %}
+	{% endblock %}
 </html>

@@ -1,5 +1,59 @@
 {% extends 'main.html' %}
 
-{% block content %}
+{% block meta %}
+<title>{{ CODE_NAME }} Statistics | Participate</title>
+{% endblock %}
 
+{% block static %}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'style/home.css') }}">
+{% endblock %}
+
+{% block content %}
+<header>
+<div class="title">
+	{{ CODE_NAME }} Acceptance
+</div>
+<div class="sub_title" title="{{ gettext('YEAR - SEMESTER') }}">{{ YEAR }} - {{ SEMESTER }}</div>
+</header>
+
+<section>
+	<form action="." method="POST">
+		<input id="sex" type="radio" name="sex" onclick="handleClick(this);" value="M" required> {{ gettext('Male') }}
+		<input id="sex" type="radio" name="sex" onclick="handleClick(this);" value="F"> {{ gettext('Female') }}
+		<br>
+		<label for="major">{{ gettext('Major') }}</label>
+		<select name="major" id="major" required disabled>
+			{% if CURRENT_LANGUAGE in RTL_LANGUAGES %}
+			{% for i in MAJORS_DATA %}
+			<option value="{{ i['code'] }}" id="{{ i['sex'] }}">{{ i['ar_name'] }} | {{ i['en_name'] }}</option>
+			{% endfor %}
+			{% else %}
+			{% for i in MAJORS_DATA %}
+			<option value="{{ i['code'] }}" id="{{ i['sex'] }}">{{ i['en_name'] }} | {{ i['ar_name'] }}</option>
+			{% endfor %}
+			{% endif %}
+		</select>
+		<br>
+		<label for="batch">{{ gettext('Batch') }}</label>
+		<input type="number" name="batch" id="batch" required>
+		<br>
+		<label for="CGP">{{ gettext('CGP') }}</label>
+		<input type="number" min="0" max="100" name="CGP" id="CGP" required>
+		<br>
+		<label for="GAT">{{ gettext('GAT') }}</label>
+		<input type="number" min="0" max="100" name="GAT" id="GAT" required>
+		<br>
+		<label for="Achievement">{{ gettext('Achievement') }}</label>
+		<input type="number" min="0" max="100" name="Achievement" id="Achievement" required>
+		<br>
+		<label for="STEP">{{ gettext('STEP') }}</label>
+		<input type="number" min="0" max="100" name="STEP" id="STEP" required>
+		<br>
+		<input type="submit" min="0" max="100" value="{{ gettext('Submit') }}">
+	</form>
+</section>
+{% endblock %}
+
+{% block foot %}
+<script src="{{ url_for('static', filename = 'script/home.js') }}"></script>
 {% endblock %}

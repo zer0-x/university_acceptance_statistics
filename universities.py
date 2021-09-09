@@ -1,16 +1,9 @@
 #!/usr/bin/env python
-
-__author__ = 'zer0-x'
-
-
-from typing import List, Optional, Any
+from typing import Optional
 
 import json
 
-
 from database import DataBase
-import web
-
 
 class CLI:
 	@staticmethod
@@ -38,7 +31,7 @@ class CLI:
 			return None
 
 		else:
-			return university[choice][0]
+			return universities_data[choice][0]
 
 def main() -> bool:
 	con, cur = DataBase.connect()
@@ -50,19 +43,7 @@ def main() -> bool:
 		con.close()
 		return True
 
-	id, en_name, ar_name, year, semester, majors_data_json, create_time  = next(cur.execute(
-												'''SELECT * FROM universities_data WHERE id = ":id"''',
-												{'id': id}))
-
-	majors_data = json.loads(majors_data_json)
-	del majors_data_json
-
-
-
-	##CONT
-
-
-
+	print('ID: '+ id)
 
 	con.close()
 	return False

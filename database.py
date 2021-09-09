@@ -16,6 +16,7 @@ class DataBase:
 
 		cur.execute('''CREATE TABLE IF NOT EXISTS universities_data
 					(id TEXT UNIQUE NOT NULL,
+					code_name TEXT NOT NULL,
 					en_name TEXT NOT NULL,
 					ar_name TEXT NOT NULL,
 					year INTEGER NOT NULL,
@@ -29,6 +30,7 @@ class DataBase:
 	@staticmethod
 	def new_universities_table(con, cur) -> None:
 		##get university info
+		code_name = input('University code name: ')
 		en_name = input('English university name: ')
 		ar_name = input('Arabic university name: ')
 		year = int(input('Admission year: '))
@@ -83,7 +85,7 @@ class DataBase:
 		if use_majors_file:
 			file_path = input('A valid file path (Don\'t use quotes): ')
 			with open(file_path, 'r') as file:
-				majors_data_json = file.read()
+				majors_data_json = json.dumps(json.loads(file.read()))
 		else:
 			majors_data_json = get_majors()
 
@@ -92,9 +94,10 @@ class DataBase:
 
 		##Insert university data to db
 		cur.execute('''INSERT INTO universities_data VALUES
-					(:id, :en_name, :ar_name, :year, :semester, :majors_data_json, :create_time);''',
+					(:id, :code_name, :en_name, :ar_name, :year, :semester, :majors_data_json, :create_time);''',
 
 					{'id': id,
+					'code_name': code_name,
 					'en_name': en_name,
 					'ar_name': ar_name,
 					'year': year,
@@ -102,10 +105,9 @@ class DataBase:
 					'majors_data_json': majors_data_json,
 					'create_time': time.time()})
 
-		con.commit()
 
 		##Create new table for the university
-		cur.execute('''CREATE TABLE IF NOT EXISTS ":id"
+		cur.execute('''CREATE TABLE IF NOT EXISTS {}
 					(student_id TEXT UNIQUE NOT NULL,
 					sex TEXT NOT NULL,
 					major TEXT NOT NULL,
@@ -115,10 +117,15 @@ class DataBase:
 					Achievement INTEGER,
 					STEP INTEGER,
 					add_time REAL NOT NULL,
-					last_update REAL);''',
-					{'id': id})
+					last_update REAL);'''.format(id))
 
 		con.commit()
+
+	@staticmethod
+	def get_university_data(con, cur, id:str):
+		cur.execute('''SELECT * FROM universities_data WHERE id = :id''',
+					{'id': id})
+		return cur.fetchone()
 
 	@staticmethod
 	def drop_table(con, cur):
@@ -133,14 +140,14 @@ class DataBase:
 		confirmation = True if input(f'Are you sure that you want to delete {en_name}-{year}-{semester} and all it\'s data?').lower() in ['y', 'yes', 1] else False
 
 		cur.execute('''DELETE FROM universities_data
-					WHERE id = ":id";''')
-		cur.execute('DROP TABLE IF EXISTS ":id";', {'id', id})
+					WHERE id = :id;''')
+		cur.execute('DROP TABLE IF EXISTS :id;', {'id', id})
 
 	@staticmethod
 	def insert_student_data(con, cur, id:str, student_id:str, sex:int, major:str, batch:int,
 							CGP:float=None, GAT:int=None, Achievement:int=None, STEP:int=None) -> None:
 
-		cur.execute('''INSERT INTO ":id" VALUES
+		cur.execute('''INSERT INTO :id VALUES
 					(:student_id, :sex, :major, :batch, :CGP, :GAT, :Achievement, :STEP, :add_time, :last_update
 					)''',
 					{'id': id,
@@ -167,7 +174,7 @@ class DataBase:
 	def update_student_data(con, cur, id:str, student_id:str, major:str, batch:int,
 							CGP:float=None, GAT:int=None, Achievement:int=None, STEP:int=None) -> None:
 
-		cur.execute('''UPDATE ":id" SET
+		cur.execute('''UPDATE :id SET
 					major = :major,
 					batch = :batch,
 					CGP =:CGP,
@@ -186,7 +193,7 @@ class DataBase:
 
 	@staticmethod
 	def student_withdrawal(con, cur, id:str, student_id:str) -> None:
-		cur.execute('DELETE FROM ":id" WHERE student_id = ":student_id"',
+		cur.execute('DELETE FROM :id WHERE student_id = ":student_id"',
 					{'id': id, 'student_id': student_id})
 
 	@staticmethod

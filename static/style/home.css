@@ -1,0 +1,42 @@
+header .title {
+	font-size: xx-large;
+	text-align: center;
+}
+
+header .sub_title {
+	font-size: large;
+	text-align: center;
+}
+
+section {
+	margin: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+form {
+	background-color: rgba(0, 137, 123, 0.6);
+	padding: 20px;
+	border-radius: 10px;
+}
+
+form input {
+	margin: 13px;
+	font-size: large;
+}
+
+#major,
+ {
+
+}
+
+#batch {
+	width: 35px;
+}
+
+#CGP,
+#GAT,
+#Achievement,
+#STEP {
+	width: 65px;
+}

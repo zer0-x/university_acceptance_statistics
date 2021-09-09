@@ -1,16 +1,42 @@
 body {
-    background-color: rgb(29, 29, 29);
+	margin: 0;
+	background-color: rgb(28, 28, 28);
+	font-family: sans-serif;
+	color: White;
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto 90% auto;
 }
 
 nav {
-    display: flex;
+	display: flex;
+	margin-top: 10px;
 }
 
 nav a {
-    margin: auto;
-    padding: 7px;
-    background-color: rgba(128, 128, 128, 0.192);
-    color: white;
-    text-decoration: none;
-    border-radius: 20px;
+	margin: auto;
+	padding: 8px;
+	border-radius: 17px;
+	text-decoration: none;
+	font-size: 5.9vw;
+	color: White;
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+main {
+	padding: 20px;
+
+}
+
+footer {
+	padding: 20px;
+	padding-bottom: 40px;
+}
+
+
+@media only screen and (min-width: 768px){
+
+	nav a {
+		font-size: 2vw;
+	}
 }
