@@ -7,12 +7,12 @@ import sqlite3
 import json
 
 class DataBase:
+	db_file = 'db.sqlite3'
+
 	@staticmethod
-	def connect(db_file = 'db.sqlite3') -> tuple:
-
-		con:sqlite3.Connection = sqlite3.connect(db_file)
-		cur:sqlite3.Cursor = con.cursor()
-
+	def create_database(db_file = db_file) -> None:
+		con = sqlite3.connect(db_file)
+		cur = con.cursor()
 
 		cur.execute('''CREATE TABLE IF NOT EXISTS universities_data
 					(id TEXT UNIQUE NOT NULL,
@@ -23,6 +23,14 @@ class DataBase:
 					semester INTEGER NOT NULL,
 					majors_data_json TEXT NOT NULL,
 					create_time REAL NOT NULL);''')
+
+		con.close()
+
+
+	@staticmethod
+	def connect(db_file = db_file) -> tuple:
+		con = sqlite3.connect(db_file)
+		cur = con.cursor()
 
 		return con, cur
 
@@ -35,9 +43,6 @@ class DataBase:
 		ar_name = input('Arabic university name: ')
 		year = int(input('Admission year: '))
 		semester = int(input('Admission semester (1, 2, 3):'))
-		
-		majors_count = int(input('\nUniversity majors count: '))
-		unified_total = True if input('Do you want to use unified total combination? ').lower() in ['y', 'yes', 1] else False
 
 		##Input function for the total combination
 		def get_total() -> List:
@@ -87,6 +92,9 @@ class DataBase:
 			with open(file_path, 'r') as file:
 				majors_data_json = json.dumps(json.loads(file.read()))
 		else:
+			unified_total = True if input('\nDo you want to use unified total combination? ').lower() in ['y', 'yes', 1, ''] else False
+			majors_count = int(input('\nUniversity majors count: '))
+		
 			majors_data_json = get_majors()
 
 		##Create an id for the university
@@ -116,6 +124,7 @@ class DataBase:
 					GAT INTEGER,
 					Achievement INTEGER,
 					STEP INTEGER,
+					region TEXT,
 					add_time REAL NOT NULL,
 					last_update REAL);'''.format(id))
 
@@ -144,11 +153,12 @@ class DataBase:
 		cur.execute('DROP TABLE IF EXISTS :id;', {'id', id})
 
 	@staticmethod
-	def insert_student_data(con, cur, id:str, student_id:str, sex:int, major:str, batch:int,
-							CGP:float=None, GAT:int=None, Achievement:int=None, STEP:int=None) -> None:
+	def insert_student_data(con, cur, id:str, student_id:str, sex:int, major:str, batch:int, 
+							CGP:float=None, GAT:int=None, Achievement:int=None, STEP:int=None,
+							region:str=None) -> None:
 
 		cur.execute('''INSERT INTO :id VALUES
-					(:student_id, :sex, :major, :batch, :CGP, :GAT, :Achievement, :STEP, :add_time, :last_update
+					(:student_id, :sex, :major, :batch, :CGP, :GAT, :Achievement, :STEP, :region, :add_time, :last_update
 					)''',
 					{'id': id,
 					'student_id': student_id,
@@ -159,8 +169,10 @@ class DataBase:
 					'GAT': GAT,
 					'Achievement': Achievement,
 					'STEP': STEP,
+					'region': region,
 					'add_time': time.time(),
 					'lastupdate': None})
+
 
 	@staticmethod
 	def get_student_data(con, cur, id:str, student_id:str) -> tuple:
@@ -180,7 +192,8 @@ class DataBase:
 					CGP =:CGP,
 					GAT = :GAT
 					Achievement = :Achievement,
-					STEP = :STEP
+					STEP = :STEP,
+					lastupdate = :lastupdate,
 					WHERE student_id = :student_id''',
 					{'id': id,
 					'student_id': student_id,
@@ -189,7 +202,9 @@ class DataBase:
 					'CGP': CGP,
 					'GAT': GAT,
 					'Achievement': Achievement,
-					'STEP': STEP})
+					'STEP': STEP,
+					'lastupdate': time.time()})
+
 
 	@staticmethod
 	def student_withdrawal(con, cur, id:str, student_id:str) -> None:
@@ -197,6 +212,6 @@ class DataBase:
 					{'id': id, 'student_id': student_id})
 
 	@staticmethod
-	def get_statics(con, cur) -> set:
+	def get_statistics(con, cur) -> set:
 		#CONT
 		pass

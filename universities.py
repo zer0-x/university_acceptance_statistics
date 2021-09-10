@@ -34,8 +34,8 @@ class CLI:
 			return universities_data[choice][0]
 
 def main() -> bool:
+	DataBase.create_database()
 	con, cur = DataBase.connect()
-	
 
 	id = CLI.get_university_id(con, cur)
 

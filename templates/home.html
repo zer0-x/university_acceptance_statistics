@@ -1,7 +1,7 @@
 {% extends 'main.html' %}
 
 {% block meta %}
-<title>{{ CODE_NAME }} Statistics | Participate</title>
+<title>{{ PAGE_META_TITLE }}</title>
 {% endblock %}
 
 {% block static %}
@@ -18,8 +18,10 @@
 
 <section>
 	<form action="." method="POST">
-		<input id="sex" type="radio" name="sex" onclick="handleClick(this);" value="M" required> {{ gettext('Male') }}
-		<input id="sex" type="radio" name="sex" onclick="handleClick(this);" value="F"> {{ gettext('Female') }}
+		<input id="male" type="radio" name="sex" onclick="handleClick(this);" value="M" required>
+		<label for="male">{{ gettext('Male') }}</label>
+		<input id="female" type="radio" name="sex" onclick="handleClick(this);" value="F">
+		<label for="female">{{ gettext('Female') }}</label>
 		<br>
 		<label for="major">{{ gettext('Major') }}</label>
 		<select name="major" id="major" required disabled>
@@ -38,7 +40,7 @@
 		<input type="number" name="batch" id="batch" required>
 		<br>
 		<label for="CGP">{{ gettext('CGP') }}</label>
-		<input type="number" min="0" max="100" name="CGP" id="CGP" required>
+		<input type="number" min="0" max="100" step="0.01" name="CGP" id="CGP" required>
 		<br>
 		<label for="GAT">{{ gettext('GAT') }}</label>
 		<input type="number" min="0" max="100" name="GAT" id="GAT" required>
@@ -48,6 +50,16 @@
 		<br>
 		<label for="STEP">{{ gettext('STEP') }}</label>
 		<input type="number" min="0" max="100" name="STEP" id="STEP" required>
+		<br>
+		<label for="region">{{ gettext('Region') }}</label>
+		<select name="region" id="region" required>
+			{% for region_code, region in REGIONS %}
+			<option value="{{ region_code }}">{{ region }}</option>
+			{% endfor %}
+		</select>
+		<br>
+		<img class="captchaImage" src="data:image/jpeg;base64,{{ CAPTCHA_IMAGE }}" alt="CAPTCHA image">
+		<input type="text" name="CAPTCHA" id="CAPTCHA" required>
 		<br>
 		<input type="submit" min="0" max="100" value="{{ gettext('Submit') }}">
 	</form>

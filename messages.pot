@@ -1,6 +1,6 @@
-# Translations template for "university acceptance statistics" PROJECT.
-# Copyright (C) 2021 zer0-x
-# This file is distributed under the same license as the PROJECT "university acceptance statistics".
+# Translations template for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 #, fuzzy
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-09-09 00:14+0300\n"
+"POT-Creation-Date: 2021-09-11 02:41+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,132 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: templates/main.html:18
-msgid "submit"
+#: web.py:102
+msgid "Mecca Region"
+msgstr ""
+
+#: web.py:103
+msgid "Riyadh Region"
+msgstr ""
+
+#: web.py:104
+msgid "Eastern Region "
+msgstr ""
+
+#: web.py:105
+msgid "Asir Region"
+msgstr ""
+
+#: web.py:106
+msgid "Jizan Region"
+msgstr ""
+
+#: web.py:107
+msgid "Medina Region"
+msgstr ""
+
+#: web.py:108
+msgid "Al-Qassim Region"
+msgstr ""
+
+#: web.py:109
+msgid "Tabuk Region"
+msgstr ""
+
+#: web.py:110
+msgid "Ha'il Region"
+msgstr ""
+
+#: web.py:111
+msgid "Najran Region"
+msgstr ""
+
+#: web.py:112
+msgid "Al-Jawf Region"
+msgstr ""
+
+#: web.py:113
+msgid "Al-Bahah Region"
+msgstr ""
+
+#: web.py:114
+msgid "Northern Borders Region"
+msgstr ""
+
+#: web.py:133
+msgid "Acceptance | Participate"
+msgstr ""
+
+#: web.py:134
+#, python-format
+msgid "%s Acceptance"
+msgstr ""
+
+#: templates/home.html:16
+msgid "YEAR - SEMESTER"
+msgstr ""
+
+#: templates/home.html:22
+msgid "Male"
+msgstr ""
+
+#: templates/home.html:24
+msgid "Female"
+msgstr ""
+
+#: templates/home.html:26
+msgid "Major"
+msgstr ""
+
+#: templates/home.html:39
+msgid "Batch"
+msgstr ""
+
+#: templates/home.html:42
+msgid "CGP"
+msgstr ""
+
+#: templates/home.html:45
+msgid "GAT"
+msgstr ""
+
+#: templates/home.html:48
+msgid "Achievement"
+msgstr ""
+
+#: templates/home.html:51
+msgid "STEP"
+msgstr ""
+
+#: templates/home.html:54
+msgid "Region"
+msgstr ""
+
+#: templates/home.html:64
+msgid "Submit"
 msgstr ""
 
 #: templates/main.html:21
+msgid "Participate with your grades to provide more accurate statistic."
+msgstr ""
+
+#: templates/main.html:22
+msgid "Participate"
+msgstr ""
+
+#: templates/main.html:26
 msgid "Edit"
 msgstr ""
 
-#: templates/main.html:24
-msgid "Statics"
+#: templates/main.html:29
+msgid "Statistics"
 msgstr ""
 
-#: templates/main.html:27
+#: templates/main.html:32
 msgid "About"
+msgstr ""
+
+#: templates/main.html:50
+msgid "Change Locale"
 msgstr ""
 

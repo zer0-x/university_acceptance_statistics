@@ -25,14 +25,22 @@
 		<a href="{{ url_for('edit') }}">
 			<div>{{ gettext('Edit') }}</div>
 		</a>
-		<a href="{{ url_for('statics') }}">
-			<div>{{ gettext('Statics') }}</div>
+		<a href="{{ url_for('statistics') }}">
+			<div>{{ gettext('Statistics') }}</div>
 		</a>
 		<a href="{{ url_for('about') }}">
 			<div>{{ gettext('About') }}</div>
 		</a>
 	</nav>
-	
+
+	<div>
+	{% for message in get_flashed_messages() %}
+		<div class="flash">
+			<b>{{message}}</b><button onclick="closeFlash(this);">[Close]</button>
+		</div>
+	{% endfor %}
+	</div>
+
 	<main>
 		{% block content %}
 		{% endblock %}
@@ -42,6 +50,7 @@
 		<a href="{{ url_for('set_locale') }}">{{ gettext('Change Locale') }}</a>
 	</footer>
 </body>
+	<script src="{{ url_for('static', filename = 'script/main.js') }}"></script>
 	{% block foot %}
 	{% endblock %}
 </html>

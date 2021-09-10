@@ -23,12 +23,9 @@ form {
 form input {
 	margin: 13px;
 	font-size: large;
+	border: 1 solid red;
 }
 
-#major,
- {
-
-}
 
 #batch {
 	width: 35px;
@@ -38,5 +35,16 @@ form input {
 #GAT,
 #Achievement,
 #STEP {
+	width: 65px;
+}
+
+.captchaImage {
+	vertical-align: middle;
+	margin-top: 20px;
+}
+
+#CAPTCHA {
+	vertical-align:middle;
+	margin-top: 30px;
 	width: 65px;
 }

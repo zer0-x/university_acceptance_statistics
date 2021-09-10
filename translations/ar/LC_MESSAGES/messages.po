@@ -1,6 +1,7 @@
 # Arabic translations for "university acceptance statistics" PROJECT.
 # Copyright (C) 2021 zer0-x
-# This file is distributed under the same license as the PROJECT "university acceptance statistics".
+# This file is distributed under the same license as the PROJECT "university
+# acceptance statistics".
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 # zer0-x <@zer0-x:matrix.org>, 2021.
@@ -8,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-09-09 00:14+0300\n"
-"PO-Revision-Date: 2021-09-09 00:16+0300\n"
+"POT-Creation-Date: 2021-09-11 02:41+0300\n"
+"PO-Revision-Date: 2021-09-11 02:44+0300\n"
 "Last-Translator: zer0-x <@zer0-x:matrix.org>\n"
 "Language: ar\n"
 "Language-Team: Arabic <>\n"
@@ -21,19 +22,132 @@ msgstr ""
 "Generated-By: Babel 2.9.1\n"
 "X-Generator: Lokalize 21.08.1\n"
 
-#: templates/main.html:18
-msgid "submit"
+#: web.py:102
+msgid "Mecca Region"
+msgstr "منطقة مكة المكرمة"
+
+#: web.py:103
+msgid "Riyadh Region"
+msgstr "منطقة الرياض"
+
+#: web.py:104
+msgid "Eastern Region "
+msgstr "المنطقة الشرقية"
+
+#: web.py:105
+msgid "Asir Region"
+msgstr "منطقة عسير"
+
+#: web.py:106
+msgid "Jizan Region"
+msgstr "منطقة جازان"
+
+#: web.py:107
+msgid "Medina Region"
+msgstr "منطقة المدينة المنورة"
+
+#: web.py:108
+msgid "Al-Qassim Region"
+msgstr "منطقة القصيم"
+
+#: web.py:109
+msgid "Tabuk Region"
+msgstr "منطقة تبوك"
+
+#: web.py:110
+msgid "Ha'il Region"
+msgstr "منطقة حائل"
+
+#: web.py:111
+msgid "Najran Region"
+msgstr "منطقة نجران"
+
+#: web.py:112
+msgid "Al-Jawf Region"
+msgstr "منطقة الجوف"
+
+#: web.py:113
+msgid "Al-Bahah Region"
+msgstr "منطقة الباحة"
+
+#: web.py:114
+msgid "Northern Borders Region"
+msgstr "منطقة الحدود الشمالية"
+
+#: web.py:133
+#, python-format
+msgid "Acceptance | Participate"
+msgstr "إحصاءاتُ القَبُول | المُشارَكَة"
+
+#: web.py:134
+#, python-format
+msgid "%s Acceptance"
+msgstr "قَبُول %s"
+
+#: templates/home.html:16
+msgid "YEAR - SEMESTER"
+msgstr "العام - الفصل الدراسي"
+
+#: templates/home.html:22
+msgid "Male"
+msgstr "ذكر"
+
+#: templates/home.html:24
+msgid "Female"
+msgstr "أنثى"
+
+#: templates/home.html:26
+msgid "Major"
+msgstr "التخصص"
+
+#: templates/home.html:39
+msgid "Batch"
+msgstr "الدفعة"
+
+#: templates/home.html:42
+msgid "CGP"
+msgstr "المعدل التراكمي"
+
+#: templates/home.html:45
+msgid "GAT"
+msgstr "القدرات"
+
+#: templates/home.html:48
+msgid "Achievement"
+msgstr "التحصيلي"
+
+#: templates/home.html:51
+msgid "STEP"
+msgstr "ستيب"
+
+#: templates/home.html:54
+msgid "Region"
+msgstr "المنطقة"
+
+#: templates/home.html:64
+msgid "Submit"
 msgstr "إرسال"
 
 #: templates/main.html:21
-msgid "Edit"
-msgstr "تعديل"
+msgid "Participate with your grades to provide more accurate statistic."
+msgstr "شارك درجاتك معنا لتوفير إحصاءات أكثر دقة."
 
-#: templates/main.html:24
-msgid "Statics"
+#: templates/main.html:22
+msgid "Participate"
+msgstr "المُشارَكَة"
+
+#: templates/main.html:26
+msgid "Edit"
+msgstr "التَعديل"
+
+#: templates/main.html:29
+msgid "Statistics"
 msgstr "الإحصاءات"
 
-#: templates/main.html:27
+#: templates/main.html:32
 msgid "About"
 msgstr "حَول"
 
+#: templates/main.html:50
+msgid "Change Locale"
+msgstr "تغيير اللغة"

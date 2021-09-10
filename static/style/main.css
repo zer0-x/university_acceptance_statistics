@@ -5,7 +5,7 @@ body {
 	color: White;
 	display: grid;
 	grid-template-columns: auto;
-	grid-template-rows: auto 90% auto;
+	grid-template-rows: auto auto 90% auto;
 }
 
 nav {
@@ -21,6 +21,26 @@ nav a {
 	font-size: 5.9vw;
 	color: White;
 	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.flash {
+	font-size: large;
+	background-color: rgba(255, 0, 55, 0.664);
+	margin: auto;
+	margin-top: 20px;
+	max-width: 90vw;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.flash b {
+	word-wrap: break-word;
+}
+
+.flash button {
+	color: black;
+	background-color: transparent;
+	border: 0;
 }
 
 main {
