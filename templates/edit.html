@@ -1,6 +1,10 @@
 {% extends 'main.html' %}
 
-{% block head %}
+{% block meta %}
+<title>{{ gettext('') }}</title>
+{% endblock %}
+
+{% block static %}
 <link rel="stylesheet" href="{{ url_for('static', filename = 'style/edit.css') }}">
 {% endblock %}
 

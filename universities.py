@@ -43,6 +43,8 @@ def main() -> bool:
 		con.close()
 		return True
 
+	#TODO Insert university ID to .env file
+
 	print('ID: '+ id)
 
 	con.close()
