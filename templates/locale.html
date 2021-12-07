@@ -1,12 +1,20 @@
 {% extends 'main.html' %}
 
-{% block head %}
+{% block static %}
 <link rel="stylesheet" href="{{ url_for('static', filename = 'style/locale.css') }}">
 {% endblock %}
 
 {% block content %}
+<section>
 <form action="{{ url_for('set_locale') }}" method="post">
-	<input type="text" name="language" id="language" value="ar"><br>
-	<input type="submit" value="Submit">
+	{% for local, local_name in AVAILABLE_LOCALS %}
+	<div>
+		<input type="radio" name="language" value="{{ local }}" id="{{ local }}" required>
+		<label for="{{ local }}">{{ local_name }}</label>
+	</div>
+	<br>
+	{% endfor %}
+	<input type="submit" value="{{ gettext('Save') }}">
 </form>
+</section>
 {% endblock %}

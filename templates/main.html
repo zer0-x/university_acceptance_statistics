@@ -22,9 +22,6 @@
 				{{ gettext('Participate') }}
 			</div>
 		</a>
-		<a href="{{ url_for('edit') }}">
-			<div>{{ gettext('Edit') }}</div>
-		</a>
 		<a href="{{ url_for('statistics') }}">
 			<div>{{ gettext('Statistics') }}</div>
 		</a>
@@ -32,6 +29,10 @@
 			<div>{{ gettext('About') }}</div>
 		</a>
 	</nav>
+
+	<a class="local" href="{{ url_for('set_locale') }}" title="{{ gettext('Change Local') }}">
+		{{ gettext('Current Language') }}: {{ CURRENT_LOCAL }}
+	</a>
 
 	<div>
 	{% for category, message in get_flashed_messages(with_categories=true) %}
@@ -47,7 +48,7 @@
 	</main>
 
 	<footer>
-		<a href="{{ url_for('set_locale') }}">{{ gettext('Change Locale') }}</a>
+	<a href="https://github.com/zer0-x">{{ gettext('Made By zer0-x') }}</a>
 	</footer>
 </body>
 	<script src="{{ url_for('static', filename = 'script/main.js') }}"></script>

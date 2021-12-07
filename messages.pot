@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-09-11 02:41+0300\n"
+"POT-Creation-Date: 2021-10-17 23:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,63 +17,95 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: web.py:102
-msgid "Mecca Region"
+#: validation.py:18
+msgid "Sex value error."
 msgstr ""
 
-#: web.py:103
-msgid "Riyadh Region"
+#: validation.py:23
+msgid "CGP value error."
+msgstr ""
+
+#: validation.py:28
+msgid "GAT value error."
+msgstr ""
+
+#: validation.py:33
+msgid "Achievement value error."
+msgstr ""
+
+#: validation.py:38
+msgid "STEP value error."
+msgstr ""
+
+#: validation.py:43
+msgid "Region value error."
 msgstr ""
 
 #: web.py:104
+msgid "Invalid CAPTCHA."
+msgstr ""
+
+#: web.py:125
+msgid "Form value error, "
+msgstr ""
+
+#: web.py:144
+msgid "Mecca Region"
+msgstr ""
+
+#: web.py:145
+msgid "Riyadh Region"
+msgstr ""
+
+#: web.py:146
 msgid "Eastern Region "
 msgstr ""
 
-#: web.py:105
+#: web.py:147
 msgid "Asir Region"
 msgstr ""
 
-#: web.py:106
+#: web.py:148
 msgid "Jizan Region"
 msgstr ""
 
-#: web.py:107
+#: web.py:149
 msgid "Medina Region"
 msgstr ""
 
-#: web.py:108
+#: web.py:150
 msgid "Al-Qassim Region"
 msgstr ""
 
-#: web.py:109
+#: web.py:151
 msgid "Tabuk Region"
 msgstr ""
 
-#: web.py:110
+#: web.py:152
 msgid "Ha'il Region"
 msgstr ""
 
-#: web.py:111
+#: web.py:153
 msgid "Najran Region"
 msgstr ""
 
-#: web.py:112
+#: web.py:154
 msgid "Al-Jawf Region"
 msgstr ""
 
-#: web.py:113
+#: web.py:155
 msgid "Al-Bahah Region"
 msgstr ""
 
-#: web.py:114
+#: web.py:156
 msgid "Northern Borders Region"
 msgstr ""
 
-#: web.py:133
+#: web.py:174
 msgid "Acceptance | Participate"
 msgstr ""
 
-#: web.py:134
+#: web.py:175
 #, python-format
 msgid "%s Acceptance"
 msgstr ""
@@ -94,31 +126,35 @@ msgstr ""
 msgid "Major"
 msgstr ""
 
-#: templates/home.html:39
+#: templates/home.html:28 templates/home.html:57
+msgid "Choose here"
+msgstr ""
+
+#: templates/home.html:40
 msgid "Batch"
 msgstr ""
 
-#: templates/home.html:42
+#: templates/home.html:43
 msgid "CGP"
 msgstr ""
 
-#: templates/home.html:45
+#: templates/home.html:46
 msgid "GAT"
 msgstr ""
 
-#: templates/home.html:48
+#: templates/home.html:49
 msgid "Achievement"
 msgstr ""
 
-#: templates/home.html:51
+#: templates/home.html:52
 msgid "STEP"
 msgstr ""
 
-#: templates/home.html:54
+#: templates/home.html:55
 msgid "Region"
 msgstr ""
 
-#: templates/home.html:64
+#: templates/home.html:66
 msgid "Submit"
 msgstr ""
 
@@ -140,6 +176,10 @@ msgstr ""
 
 #: templates/main.html:32
 msgid "About"
+msgstr ""
+
+#: templates/main.html:39
+msgid "[Close]"
 msgstr ""
 
 #: templates/main.html:50

@@ -186,35 +186,35 @@ class DataBase:
 
 		return cur.fetchone()
 
-	@ staticmethod
-	def update_student_data(con, cur, id: str, student_id: str, major: str, batch: int,
-                         CGP: float = None, GAT: int = None, Achievement: int = None, STEP: int = None) -> None:
+	# @ staticmethod
+	# def update_student_data(con, cur, id: str, student_id: str, major: str, batch: int,
+    #                      CGP: float = None, GAT: int = None, Achievement: int = None, STEP: int = None) -> None:
 
-		cur.execute('''UPDATE :id SET
-					major = :major,
-					batch = :batch,
-					CGP =:CGP,
-					GAT = :GAT
-					Achievement = :Achievement,
-					STEP = :STEP,
-					lastupdate = :lastupdate,
-					WHERE student_id = :student_id''',
-                    {'id': id,
-                     'student_id': student_id,
-                     'major': major,
-                     'batch': batch,
-                     'CGP': CGP,
-                     'GAT': GAT,
-                     'Achievement': Achievement,
-                     'STEP': STEP,
-                     'lastupdate': time.time()})
+	# 	cur.execute('''UPDATE :id SET
+	# 				major = :major,
+	# 				batch = :batch,
+	# 				CGP =:CGP,
+	# 				GAT = :GAT
+	# 				Achievement = :Achievement,
+	# 				STEP = :STEP,
+	# 				lastupdate = :lastupdate,
+	# 				WHERE student_id = :student_id''',
+    #                 {'id': id,
+    #                  'student_id': student_id,
+    #                  'major': major,
+    #                  'batch': batch,
+    #                  'CGP': CGP,
+    #                  'GAT': GAT,
+    #                  'Achievement': Achievement,
+    #                  'STEP': STEP,
+    #                  'lastupdate': time.time()})
 
-		con.commit()
+	# 	con.commit()
 
-	@ staticmethod
-	def student_withdrawal(con, cur, id: str, student_id: str) -> None:
-		cur.execute('DELETE FROM :id WHERE student_id = ":student_id"',
-                    {'id': id, 'student_id': student_id})
+	# @ staticmethod
+	# def student_withdrawal(con, cur, id: str, student_id: str) -> None:
+	# 	cur.execute('DELETE FROM :id WHERE student_id = ":student_id"',
+    #                 {'id': id, 'student_id': student_id})
 
 	@ staticmethod
 	def get_statistics(con, cur) -> set:

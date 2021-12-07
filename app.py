@@ -1,6 +1,7 @@
 from database import DataBase
 from validation import FormDataValidation
 from base64 import b64encode
+from urllib.parse import quote
 from random import randint
 from secrets import token_hex
 from captcha.image import ImageCaptcha
@@ -19,7 +20,7 @@ app.config['SECRET_KEY'] = env['SECRET_KEY']
 
 # Localization things
 app.config['LANGUAGES'] = {
-	'ar': 'Arabic',
+	'ar': 'العَرَبيَّة',
 	'en': 'English'
 }
 RTL_LANGUAGES = [
@@ -101,11 +102,24 @@ validate = FormDataValidation(majors_data, REGIONS, gettext)
 @app.route('/', methods=['GET', 'POST'])
 def home():
 	if 'student_id' in session:
-		return render_template('p.html',
-                        CURRENT_LANGUAGE=session.get(
-                        	'language', request.accept_languages.best_match(app.config['LANGUAGES'].keys())),
-                        RTL_LANGUAGES=RTL_LANGUAGES,
-                        student_id=session['student_id'])
+		#Social media message for Whatsapp and Telegram
+		social_media_message = gettext(
+f'''
+New students are kindly requested to participate in this form by entering their grades for the purpose of knowing the admission grades for the year {university_data[4]} and semester {university_data[5]} at {university_data[1]} university.
+
+🔴This form is unofficial and completely managed by other students, {university_data[1]} university has no hand in it🔴
+'''
+)
+
+		return render_template('done.html',
+                         CURRENT_LANGUAGE=session.get(
+                        	'language', request.accept_languages.best_match(app.config['LANGUAGES'])),
+                         CURRENT_LOCAL=app.config['LANGUAGES'][session.get(
+                             'language', request.accept_languages.best_match(app.config['LANGUAGES']))],  # For user display
+                         RTL_LANGUAGES=RTL_LANGUAGES,
+                         WEBSITE_URL=quote(request.base_url),
+                         SOCIAL_MEDIA_MESSAGE=quote(social_media_message),
+                         student_id=session['student_id'])
 
 	elif request.method == 'POST':
 
@@ -148,12 +162,13 @@ def home():
 		student_id = token_hex(16)
 		session['student_id'] = student_id
 
-		#Insert student data to database
+		# Insert student data to database
 		con, cur = get_database()
 		try:
 			DataBase.insert_student_data(
 				con, cur, env['DATABASE_UNIVERSITY_TABLE_ID'], student_id, sex, major, batch, CGP, GAT, Achievement, STEP, region)
-		except:
+		except Exception as e:
+			print(e)
 			flash(gettext('Your data could not be inserted to the database, please try again later. (Server Error)'), 'error')
 		else:
 			flash(gettext('You data has been inserted to the database sucessfully.'), 'success')
@@ -185,7 +200,9 @@ def home():
 
 	return render_template('home.html',
                         CURRENT_LANGUAGE=session.get(
-                        	'language', request.accept_languages.best_match(app.config['LANGUAGES'].keys())),
+                        	'language', request.accept_languages.best_match(app.config['LANGUAGES'])),
+                        CURRENT_LOCAL=app.config['LANGUAGES'][session.get(
+                        	'language', request.accept_languages.best_match(app.config['LANGUAGES']))],  # For user display
                         RTL_LANGUAGES=RTL_LANGUAGES,
                         CODE_NAME=university_data[1],
                         EN_NAME=university_data[2],
@@ -196,13 +213,6 @@ def home():
                         REGIONS=REGIONS_localized,
                         CAPTCHA_IMAGE=captcha_image,
                         PAGE_TITLE=gettext('%s Acceptance') % university_data[1])
-
-
-@app.route('/edit', methods=['GET', 'POST'])
-def edit():
-	# TODO Edit page
-	# TODO Update database
-	return render_template('edit.html')
 
 
 @app.route('/statics')
@@ -229,6 +239,9 @@ def set_locale():
 
 	else:
 		return render_template('locale.html',
-                         CURRENT_LANGUAGE=session.get('language', request.accept_languages.best_match(
-                             app.config['LANGUAGES'].keys())),
+                         CURRENT_LANGUAGE=session.get(
+                             'language', request.accept_languages.best_match(app.config['LANGUAGES'])),
+                         CURRENT_LOCAL=app.config['LANGUAGES'][session.get(
+                             'language', request.accept_languages.best_match(app.config['LANGUAGES']))],  # For user display
+                         AVAILABLE_LOCALS=app.config['LANGUAGES'].items(),
                          RTL_LANGUAGES=RTL_LANGUAGES)
