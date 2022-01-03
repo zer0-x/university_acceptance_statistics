@@ -14,21 +14,23 @@ class FormDataValidation:
                              'GAT': d['GAT'],
                              'Achievement': d['Achievement'],
                              'STEP': d['STEP']} for d in majors_data]
-        self.majors_sex = [(major['id'],
-                            major['sex']) for major in majors_data]
+        self.majors_sex = [{major['id']:
+                            major['sex']} for major in majors_data]
         self.REGIONS_codes = [code for code, _ in REGIONS]
 
         self.gettext = gettext
 
     def major(self, sex: int, major: int) -> Optional[str]:
-        """Validate major."""
-        print(major, sex, self.majors_sex)
-        if sex not in [1, 2]:
-            pass
-        # FIXME when major for both sexes (sex = 0)
-        elif (major, sex) in self.majors_sex:
-            return None
-        return self.gettext('Major incompatible with sex value.')
+        """Validate major and sex."""
+        try:
+            major_sex = self.majors_sex[major]
+        except KeyError:
+            return self.gettext('Major doesn\'t exist.')
+        else:
+            if (sex == major_sex) or (0 == major_sex):
+                return None
+            else:
+                return self.gettext('Major incompatible with sex value.')
 
     def CGP(self, CGP: float) -> Optional[str]:
         """Validate CGP grade."""
