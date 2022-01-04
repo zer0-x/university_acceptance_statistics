@@ -279,7 +279,18 @@ def statistics():
 def about():
     """Credits, license, disclaimers and etc..."""
     # TODO About page
-    return render_template('about.html')
+    return render_template('about.html',
+                           CURRENT_LANGUAGE=session.get(
+                                 'language',
+                                 request.accept_languages.best_match(
+                                     app.config['LANGUAGES'])),
+                           # For user display
+                           CURRENT_LOCAL=app.config['LANGUAGES'][
+                                   session.get(
+                                     'language',
+                                     request.accept_languages.best_match(
+                                         app.config['LANGUAGES']))],
+                           RTL_LANGUAGES=RTL_LANGUAGES)
 
 
 @app.route('/locale', methods=['POST', 'GET'])

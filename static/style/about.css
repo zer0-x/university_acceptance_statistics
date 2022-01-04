@@ -1,0 +1,9 @@
+b {
+    display: block;
+    margin-top: 20px;
+}
+
+b:nth-of-type(2) {
+    color: red;
+    margin-bottom: 30px;
+}
