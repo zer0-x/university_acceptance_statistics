@@ -1,14 +1,14 @@
 # Translations template for PROJECT.
-# Copyright (C) 2021 ORGANIZATION
+# Copyright (C) 2022 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-10-17 23:20+0300\n"
+"POT-Creation-Date: 2022-04-05 22:59+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,97 +17,164 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: validation.py:18
-msgid "Sex value error."
+#: app.py:125
+#, python-format
+msgid ""
+"\n"
+"New students are kindly requested to participate in this form.\n"
+"Just enter your grades for the purpose of knowing the admission grades.\n"
+"\n"
+"Year: %s\n"
+"Semester: %s\n"
+"%s\n"
+"\n"
+"🔴This form is unofficial and completely managed by other students,\n"
+"%s university has no hand in it🔴\n"
 msgstr ""
 
-#: validation.py:23
-msgid "CGP value error."
-msgstr ""
-
-#: validation.py:28
-msgid "GAT value error."
-msgstr ""
-
-#: validation.py:33
-msgid "Achievement value error."
-msgstr ""
-
-#: validation.py:38
-msgid "STEP value error."
-msgstr ""
-
-#: validation.py:43
-msgid "Region value error."
-msgstr ""
-
-#: web.py:104
+#: app.py:162
 msgid "Invalid CAPTCHA."
 msgstr ""
 
-#: web.py:125
+#: app.py:183
 msgid "Form value error, "
 msgstr ""
 
-#: web.py:144
+#: app.py:228
+msgid ""
+"Your data could not be inserted to the database,please try again later. "
+"(Server Error)"
+msgstr ""
+
+#: app.py:236
+msgid "You data has been inserted to the database sucessfully."
+msgstr ""
+
+#: app.py:249
 msgid "Mecca Region"
 msgstr ""
 
-#: web.py:145
+#: app.py:250
 msgid "Riyadh Region"
 msgstr ""
 
-#: web.py:146
+#: app.py:251
 msgid "Eastern Region "
 msgstr ""
 
-#: web.py:147
+#: app.py:252
 msgid "Asir Region"
 msgstr ""
 
-#: web.py:148
+#: app.py:253
 msgid "Jizan Region"
 msgstr ""
 
-#: web.py:149
+#: app.py:254
 msgid "Medina Region"
 msgstr ""
 
-#: web.py:150
+#: app.py:255
 msgid "Al-Qassim Region"
 msgstr ""
 
-#: web.py:151
+#: app.py:256
 msgid "Tabuk Region"
 msgstr ""
 
-#: web.py:152
+#: app.py:257
 msgid "Ha'il Region"
 msgstr ""
 
-#: web.py:153
+#: app.py:258
 msgid "Najran Region"
 msgstr ""
 
-#: web.py:154
+#: app.py:259
 msgid "Al-Jawf Region"
 msgstr ""
 
-#: web.py:155
+#: app.py:260
 msgid "Al-Bahah Region"
 msgstr ""
 
-#: web.py:156
+#: app.py:261
 msgid "Northern Borders Region"
 msgstr ""
 
-#: web.py:174
-msgid "Acceptance | Participate"
-msgstr ""
-
-#: web.py:175
+#: app.py:287
 #, python-format
 msgid "%s Acceptance"
+msgstr ""
+
+#: validation.py:28
+msgid "Major doesn't exist."
+msgstr ""
+
+#: validation.py:33
+msgid "Major incompatible with sex value."
+msgstr ""
+
+#: validation.py:39
+msgid "CGP value error."
+msgstr ""
+
+#: validation.py:45
+msgid "GAT value error."
+msgstr ""
+
+#: validation.py:51
+msgid "Achievement value error."
+msgstr ""
+
+#: validation.py:57
+msgid "STEP value error."
+msgstr ""
+
+#: validation.py:63
+msgid "Region value error."
+msgstr ""
+
+#: templates/about.html:4 templates/main.html:29
+msgid "About"
+msgstr ""
+
+#: templates/about.html:12
+msgid ""
+"This is an OpenSource project for the purpose of collecting data about "
+"new students in universities where the administration of admission and "
+"registration doesn't share any statistics about the admission process."
+msgstr ""
+
+#: templates/about.html:14
+msgid ""
+"Any person is able to host this web app, and collect data. No university "
+"is associated with this web app, it is mostly hosted by volunteers."
+msgstr ""
+
+#: templates/done.html:4
+msgid "Acceptance | Profile"
+msgstr ""
+
+#: templates/done.html:16
+msgid "Thank you for your participation."
+msgstr ""
+
+#: templates/done.html:18
+msgid ""
+"You are able to find the results in the <a "
+"href=\"/statics\">statistics</a> page."
+msgstr ""
+
+#: templates/done.html:21
+msgid ""
+"Please share this form with any new student in your university for the "
+"accuracy of the\n"
+"\t\tinformations."
+msgstr ""
+
+#: templates/home.html:4
+msgid "Acceptance | Participate"
 msgstr ""
 
 #: templates/home.html:16
@@ -158,6 +225,10 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
+#: templates/locale.html:17
+msgid "Save"
+msgstr ""
+
 #: templates/main.html:21
 msgid "Participate with your grades to provide more accurate statistic."
 msgstr ""
@@ -167,22 +238,22 @@ msgid "Participate"
 msgstr ""
 
 #: templates/main.html:26
-msgid "Edit"
-msgstr ""
-
-#: templates/main.html:29
 msgid "Statistics"
 msgstr ""
 
-#: templates/main.html:32
-msgid "About"
+#: templates/main.html:33
+msgid "Change Local"
 msgstr ""
 
-#: templates/main.html:39
+#: templates/main.html:34
+msgid "Current Language"
+msgstr ""
+
+#: templates/main.html:40
 msgid "[Close]"
 msgstr ""
 
-#: templates/main.html:50
-msgid "Change Locale"
+#: templates/main.html:51
+msgid "Made By zer0-x"
 msgstr ""
 
