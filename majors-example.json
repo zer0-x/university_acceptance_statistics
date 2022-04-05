@@ -1,0 +1,46 @@
+[
+    {
+        "id": 0,
+        "code": "CS",
+        "en_name": "computer since",
+        "ar_name": "علوم حاسب",
+        "sex": 0,
+        "CGP": 0.3,
+        "GAT": 0.3,
+        "Achievement": 0.4,
+        "STEP": null
+    },
+    {
+        "id": 1,
+        "code": "SWE",
+        "en_name": "software engineering",
+        "ar_name": "هندسة برمجيات",
+        "sex": 1,
+        "CGP": 0.3,
+        "GAT": 0.3,
+        "Achievement": 0.4,
+        "STEP": null
+    },
+    {
+        "id": 2,
+        "code": "ME",
+        "en_name": "Mechanical engineering",
+        "ar_name": "هندسة ميكانيكية",
+        "sex": 2,
+        "CGP": 0.3,
+        "GAT": 0.3,
+        "Achievement": 0.4,
+        "STEP": null
+    },
+    {
+        "id": 3,
+        "code": "HL",
+        "en_name": "health",
+        "ar_name": "صحة",
+        "sex": 2,
+        "CGP": 0.3,
+        "GAT": 0.3,
+        "Achievement": 0.3,
+        "STEP": 0.1
+    }
+]
